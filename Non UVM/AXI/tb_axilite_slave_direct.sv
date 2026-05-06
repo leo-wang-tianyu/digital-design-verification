@@ -1,4 +1,5 @@
 module tb_axilite_s;
+  
   reg tb_s_axi_aclk = 0;
   reg tb_s_axi_aresetn = 0;
   reg tb_s_axi_awvalid = 0;
@@ -23,7 +24,7 @@ module tb_axilite_s;
   wire [1:0] tb_s_axi_rresp; 
   
   axilite uut(
-    .s_axi_aclk(tb_s_axiaclk),
+    .s_axi_aclk(tb_s_axi_aclk),
     .s_axi_aresetn(tb_s_axi_aresetn),
     .s_axi_awvalid(tb_s_axi_awvalid),
     .s_axi_awready(tb_s_axi_awready),
@@ -44,15 +45,15 @@ module tb_axilite_s;
   );
   
   initial begin 
-    tb_s__axi_aclk = 0; 
-    forever #5 tb_s_axi_aclk = ~tb_s_axiaclk;
+    tb_s_axi_aclk = 0; 
+    forever #5 tb_s_axi_aclk = ~tb_s_axi_aclk;
     //100 MHz clock
   end
   
   initial begin 
     tb_s_axi_aresetn = 0;
     repeat(5) @(posedge tb_s_axi_aclk);
-    tb_s_axi_arestn = 1; 
+    tb_s_axi_aresetn = 1; 
     
     repeat(2) @(posedge tb_s_axi_aclk);
     tb_s_axi_awvalid = 1;
@@ -68,7 +69,7 @@ module tb_axilite_s;
     
     repeat(2) @(posedge tb_s_axi_aclk);
     tb_s_axi_bready = 1;
-    @(negedge tb_s_axi_wready);
+    @(negedge tb_s_axi_bvalid);
     tb_s_axi_bready = 0;
     
     repeat(2) @(posedge tb_s_axi_aclk);
@@ -85,6 +86,7 @@ module tb_axilite_s;
     #100;
     $stop;
   end 
+  
 
 endmodule  
   
