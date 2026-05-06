@@ -14,7 +14,7 @@ module tb_axilite_s;
   wire [1:0] tb_s_axi_bresp;
   
   reg tb_s_axi_arvalid = 0;
-  wire tb_s_axi_arreday; 
+  wire tb_s_axi_arready; 
   reg [31:0] tb_s_axi_araddr = 0;
   
   wire tb_s_axi_rvalid;
